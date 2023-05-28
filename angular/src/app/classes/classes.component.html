@@ -1,0 +1,54 @@
+<div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+    <div class="iq-card-header d-flex justify-content-between">
+       <div class="iq-header-title">
+          <h4 class="card-title">Liste des Classes</h4>
+       </div> 
+    </div>
+    <div class="iq-card-body">
+      <a routerLink="../addClasse">  <button type="button" class="btn btn-primary btn-sm mr-2" >Ajouter une classe</button></a>
+      <div class="table-responsive">
+         <table class="table mb-0 table-borderless">
+            <thead>
+               <tr>
+                  <th scope="col">Code</th> 
+                  <th scope="col">Niveau</th>
+                  <th scope="col">Action</th> 
+               </tr>
+            </thead>
+            <tbody>
+               <tr *ngFor="let el of elements; let i = index">
+                  <td>{{ el.codeC }}</td>
+                  <td>{{ el.niveauC }}</td> 
+                  <td>
+                     <a routerLink="../modifClasse/{{el.codeC}}">     <button type="button" class="btn btn-primary btn-sm mr-2" ><i class="fa fa-pencil"></i></button></a>
+                     <button type="button" class="btn btn-primary btn-sm mr-2" (click)=onDeleteClick([el.codeC])><i class="fa fa-trash"></i></button>
+                  </td>
+               </tr> 
+            </tbody>
+         </table>
+      </div>
+    </div>
+ </div>
+
+
+
+ <ng-template #infoModal let-modal>
+   <div class="modal-header">
+    <h5 class="modal-title" id="editProfileLabel">Détails Classes</h5> 
+   </div>
+   
+   <div class="modal-body"> 
+      <div class="user-profile text-center">
+         <img src="assets/images/user/11.png" alt="profile-img" class="avatar-130 img-fluid">
+      </div>
+      <div class="text-center mt-3">
+         <h4><b>Le {{modalContent.date_envoie}}</b></h4>
+         <p>Sujet : {{ modalContent.sujet }}<br>
+         Contenue : {{modalContent.contenue_reclamation }}</p> 
+      </div>
+    <br>  
+     <div class="modal-footer">
+      <button type="button" class="btn btn-dark" (click)="modal.dismiss()">Fermer</button> 
+     </div> 
+   </div>
+  </ng-template>

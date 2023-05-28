@@ -1,0 +1,65 @@
+<div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+    <div class="iq-card-header d-flex justify-content-between">
+       <div class="iq-header-title">
+          <h4 class="card-title">Liste des seances</h4>
+       </div> 
+    </div>
+    <div class="iq-card-body">
+    <a routerLink="../addSeance" > <button type="button" class="btn btn-primary btn-sm mr-2" >Ajouter une seance</button></a>
+      <div class="table-responsive">
+         <table class="table mb-0 table-borderless">
+            <thead>
+               <tr>
+                  <th scope="col">Code</th> 
+                  <th scope="col">Heure debut</th> 
+                  <th scope="col">Heure fin</th>
+                  <th scope="col">type</th> 
+                  <th scope="col">nom module</th> 
+                  <th scope="col">enseignant</th> 
+                  <th scope="col">classe</th> 
+                  <th scope="col">Action</th> 
+               </tr>
+            </thead>
+            <tbody>
+               <tr *ngFor="let el of elements; let i = index">
+                  <td>{{ el.codeS }}</td>
+                  <td>{{ el.heureDeb }}</td>
+                  <td>{{ el.heureFin }}</td>
+                  <td>{{ el.type }}</td>
+                  <td>{{ el.module.nomM }}</td>
+                  <td>{{ el.enseignant.nomUser }} &nbsp; {{el.enseignant.prenomUser}}</td>
+                  <td>{{el.cl.codeC}} &nbsp; {{el.cl.niveauC}}</td>
+                  <td>
+                     <a routerLink="../modifSeance/{{el.codeS}}" >   <button type="button" class="btn btn-primary btn-sm mr-2" ><i class="fa fa-pencil"></i></button></a>
+                     <button type="button" class="btn btn-primary btn-sm mr-2" (click)=onDeleteClick([el.codeS])><i class="fa fa-trash"></i></button>
+                  </td>
+               </tr> 
+            </tbody>
+         </table>
+      </div>
+    </div>
+ </div>
+
+
+ <ng-template #infoModal let-modal>
+   <div class="modal-header">
+    <h5 class="modal-title" id="editProfileLabel">Détails</h5> 
+   </div>
+   
+   <div class="modal-body">  
+      <div class="text-center mt-3">
+         <h4><b>{{modalContent.nom}} {{modalContent.prenom}}</b></h4>
+         <span class="badge border border-primary text-primary">{{modalContent.role}}</span>
+         <p><u> Date Réclamation</u> : {{ modalContent.date_envoie }}<br>
+            <u>Réclamation</u> : {{ modalContent.contenue_reclamation }}<br></p>
+         <br>*******************<br>
+         <p><u>Date Réponse</u> : {{ modalContent.date_reponse }}<br>
+            <u>Réponse</u> : {{modalContent.contenue_reponse }}</p> 
+      </div>
+    <br>  
+     <div class="modal-footer">
+      <button type="button" class="btn btn-dark" (click)="modal.dismiss()">Fermer</button> 
+      <button type="button" class="btn btn-primary"  *ngIf="isReclamant" (click)="goToAppel(modalContent.id_reponse)">Faire un Appel</button> 
+     </div> 
+   </div>
+  </ng-template>
